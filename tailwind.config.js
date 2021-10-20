@@ -9,10 +9,12 @@ module.exports = {
       current: 'currentColor',
       white: colors.white,
       purple: colors.purple,
+      red: colors.red,
     },
     extend: {
       animation: {
         spin: 'spin 0.25s ease-out 1',
+        pulse: 'pulse 0.25s ease-in-out 1',
       },
       backgroundImage: {
         'rocket': "url('./graphics/rocket.jpg')",

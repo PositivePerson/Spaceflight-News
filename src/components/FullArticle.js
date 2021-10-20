@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useState, useEffect } from 'react'
 import ArticleContext from '../context/article/articleContext';
 
 import { Dialog, Transition } from '@headlessui/react'
@@ -7,6 +7,9 @@ import { ReactComponent as Love } from '../graphics/heart.svg';
 
 export default function FullArticle({ openDetails, setOpenDetails }) {
     const articleContext = useContext(ArticleContext);
+
+    const [clicked, setClicked] = useState(false);
+    const [liked, setLiked] = useState(false);
 
     const {
         id,
@@ -18,8 +21,19 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
     } = articleContext.articleToShow;
 
     const handleLike = () => {
-        articleContext.favourites.find(article => article.id === id) ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
+        setClicked(true);
+        setTimeout(() => {
+            setClicked(false)
+        }, 450);
+
+        // articleContext.favourites.find(article => article.id === id) ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
+        liked ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
     }
+
+    useEffect(() => {
+        setLiked(articleContext.favourites.find(article => article.id === id))
+
+    }, [articleContext.favourites, id])
 
     return (
         <Transition appear show={openDetails} as={Fragment}>
@@ -57,7 +71,7 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                        <div className="border border-white inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl backdrop-filter backdrop-blur-2xl shadow-lg rounded-2xl">
                             <div className="flex flex-col md:flex-row">
                                 <img className="rounded-xl w-48" src={imageUrl} alt="" />
                                 <div className="flex flex-col justify-between md:pl-4">
@@ -94,7 +108,7 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
                                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                     onClick={handleLike}
                                 >
-                                    <Love className="h-6 fill-current stroke-current text-purple-300" />
+                                    <Love className={`${clicked && 'animate-pulse'} h-6 fill-current stroke-current ${liked ? 'text-red-600' : 'text-purple-300'}`} />
                                 </button>
                             </div>
                         </div>

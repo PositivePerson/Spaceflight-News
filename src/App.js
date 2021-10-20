@@ -5,6 +5,7 @@ import FullArticle from './components/FullArticle';
 import Favourites from './components/Favourites';
 import Title from './components/Title';
 import RefreshButton from './components/RefreshButton';
+import ShowFavsButton from './components/ShowFavsButton';
 import CardsContainer from './components/CardsContainer';
 
 import ArticleState from './context/article/ArticleState';
@@ -25,17 +26,17 @@ function App() {
   return (
     <ArticleState>
       <div className="App relative">
+        <div className="absolute w-full z-0 bg-rocket bg-cover bg-center h-screen" />
         <FullArticle openDetails={openDetails} setOpenDetails={setOpenDetails} />
         <Favourites openFavourites={openFavourites} setOpenFavourites={setOpenFavourites} />
-
-        {/* <img className="absolute bg-cover" src="/imgs/rocket.jpg" alt="Rocket" /> */}
-        <div className="absolute w-full z-0 bg-rocket bg-cover bg-center h-screen"></div>
-        <div className="">
-        </div>
 
         <div className="pt-6">
           <Title />
         </div>
+
+        <button className="absolute left-0 top-0 mt-16">
+          <ShowFavsButton showFavourites={showFavourites} />
+        </button>
 
         <button className="absolute right-0 top-0 mt-16">
           <RefreshButton />

@@ -3,6 +3,8 @@ import ArticleContext from '../context/article/articleContext';
 
 import { Dialog, Transition } from '@headlessui/react'
 
+import NewsCard from './NewsCard';
+
 export default function Favourites({ openFavourites, setOpenFavourites }) {
     const articleContext = useContext(ArticleContext);
 
@@ -16,7 +18,7 @@ export default function Favourites({ openFavourites, setOpenFavourites }) {
         publishedAt,
         updatedAt,
         featured,
-    } = articleContext.articleToShow;
+    } = articleContext.favourites;
 
     return (
         <Transition appear show={openFavourites} as={Fragment}>
@@ -54,19 +56,19 @@ export default function Favourites({ openFavourites, setOpenFavourites }) {
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                        <div className="border border-white inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl backdrop-filter backdrop-blur-2xl shadow-lg rounded-2xl">
                             <Dialog.Title
                                 as="h3"
                                 className="text-lg font-medium leading-6 text-gray-900"
                             >
                                 My Favourites
                             </Dialog.Title>
-                            <div className="mt-2">
-                                <p className="text-sm text-gray-500">
-                                    Your payment has been successfully submitted. We’ve sent you
-                                    an email with all of the details of your order.
-                                </p>
-                            </div>
+
+                            {!articleContext.loading ? articleContext.favourites?.map((article, id) => (
+                                <NewsCard showDetails={() => { }} key={id} article={article} fav={true}/>
+                            )) : (
+                                <NewsCard loading={true} />
+                            )}
 
                             <div className="mt-4">
                                 <button
