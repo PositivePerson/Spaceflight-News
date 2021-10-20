@@ -22,8 +22,6 @@ const ArticleState = (props) => {
             `https://api.spaceflightnewsapi.net/v3/articles`
         );
 
-        console.log("Reaching data...");
-
         dispatch({
             type: GET_DATA,
             payload: res.data

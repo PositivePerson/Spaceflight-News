@@ -26,7 +26,6 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
             setClicked(false)
         }, 450);
 
-        // articleContext.favourites.find(article => article.id === id) ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
         liked ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
     }
 
@@ -108,7 +107,7 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
                                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                     onClick={handleLike}
                                 >
-                                    <Love className={`${clicked && 'animate-pulse'} h-6 fill-current stroke-current ${liked ? 'text-red-600' : 'text-purple-300'}`} />
+                                    <Love className={`${clicked && 'animate-pulse'} h-6 fill-current stroke-current ${liked ? 'text-red-500' : 'text-purple-600'}`} />
                                 </button>
                             </div>
                         </div>

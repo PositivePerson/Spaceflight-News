@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ArticleContext from '../context/article/articleContext';
 
+import { ReactComponent as Refresh } from '../graphics/refresh.svg';
+
 const RefreshButton = () => {
     const articleContext = useContext(ArticleContext);
 
@@ -21,8 +23,8 @@ const RefreshButton = () => {
     }
 
     return (
-        <div onClick={click} className="min-w-8 p-4  backdrop-filter backdrop-blur-md shadow-md rounded-l-xl">
-            <img className={`${clicked && 'animate-spin'} fill-current text-transparent bg-clip-content`} src="/imgs/refresh.svg" alt="Refresh" />
+        <div onClick={click} className="min-w-8 p-4  backdrop-filter backdrop-blur-xl shadow-md rounded-l-xl">
+            <Refresh className={`${clicked && 'animate-spin'} fill-current text-purple-600`} src="/imgs/refresh.svg" alt="Refresh" />
         </div>
     )
 }

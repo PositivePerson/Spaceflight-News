@@ -11,7 +11,6 @@ const manageStateCalls = (state, action) => {
         case SET_ARTICLE:
             return {
                 ...state,
-                // articleToShow: state.articles.find(article => article.id === action.payload),
                 articleToShow: action.payload,
                 loading: false
             };

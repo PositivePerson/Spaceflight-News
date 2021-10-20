@@ -8,18 +8,6 @@ import NewsCard from './NewsCard';
 export default function Favourites({ openFavourites, setOpenFavourites }) {
     const articleContext = useContext(ArticleContext);
 
-    const {
-        id,
-        title,
-        url,
-        imageUrl,
-        newsSite,
-        summary,
-        publishedAt,
-        updatedAt,
-        featured,
-    } = articleContext.favourites;
-
     return (
         <Transition appear show={openFavourites} as={Fragment}>
             <Dialog
@@ -65,7 +53,7 @@ export default function Favourites({ openFavourites, setOpenFavourites }) {
                             </Dialog.Title>
 
                             {!articleContext.loading ? articleContext.favourites?.map((article, id) => (
-                                <NewsCard showDetails={() => { }} key={id} article={article} fav={true}/>
+                                <NewsCard showDetails={() => { }} key={id} article={article} fav={true} />
                             )) : (
                                 <NewsCard loading={true} />
                             )}
