@@ -1,4 +1,4 @@
-import { GET_DATA, SET_ARTICLE, SET_LOADING } from '../types';
+import { GET_DATA, SET_ARTICLE, ADD_FAVOURITE, REMOVE_FAVOURITE, SET_LOADING } from '../types';
 
 const manageStateCalls = (state, action) => {
     switch (action.type) {
@@ -13,6 +13,18 @@ const manageStateCalls = (state, action) => {
                 ...state,
                 // articleToShow: state.articles.find(article => article.id === action.payload),
                 articleToShow: action.payload,
+                loading: false
+            };
+        case ADD_FAVOURITE:
+            return {
+                ...state,
+                favourites: [...state.favourites, state.articles.find(article => article.id === action.payload)],
+                loading: false
+            };
+        case REMOVE_FAVOURITE:
+            return {
+                ...state,
+                favourites: state.favourites.filter(article => article.id !== action.payload),
                 loading: false
             };
         case SET_LOADING:

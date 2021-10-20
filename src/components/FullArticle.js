@@ -3,6 +3,8 @@ import ArticleContext from '../context/article/articleContext';
 
 import { Dialog, Transition } from '@headlessui/react'
 
+import { ReactComponent as Love } from '../graphics/heart.svg';
+
 export default function FullArticle({ openDetails, setOpenDetails }) {
     const articleContext = useContext(ArticleContext);
 
@@ -13,10 +15,11 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
         imageUrl,
         newsSite,
         summary,
-        publishedAt,
-        updatedAt,
-        featured,
     } = articleContext.articleToShow;
+
+    const handleLike = () => {
+        articleContext.favourites.find(article => article.id === id) ? articleContext.removeFromFavourites(id) : articleContext.addToFavourites(id);
+    }
 
     return (
         <Transition appear show={openDetails} as={Fragment}>
@@ -54,28 +57,44 @@ export default function FullArticle({ openDetails, setOpenDetails }) {
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                            <img className="absolute left-0 top-0 h-20 w-100" src={imageUrl} alt="" />
-                            <Dialog.Title
-                                as="h3"
-                                className="text-lg font-medium leading-6 text-gray-900"
-                            >
-                                {title} Si
-                            </Dialog.Title>
-                            <div className="mt-2">
-                                <p className="text-sm text-gray-500">
-                                    Your payment has been successfully submitted. We’ve sent you
-                                    an email with all of the details of your order.
+                        <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                            <div className="flex flex-col md:flex-row">
+                                <img className="rounded-xl w-48" src={imageUrl} alt="" />
+                                <div className="flex flex-col justify-between md:pl-4">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        {title}
+                                    </Dialog.Title>
+                                    <span className="hidden md:inline text-sm">Source: {newsSite}</span>
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <p className="text-md">
+                                    {summary}
+                                </p>
+                            </div>
+                            <div className="mt-4">
+                                <p className="text-sm">
+                                    <a href={url}>{url}</a>
                                 </p>
                             </div>
 
-                            <div className="mt-4">
+                            <div className="flex items-end justify-between mt-4">
                                 <button
                                     type="button"
                                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                     onClick={() => setOpenDetails(false)}
                                 >
                                     Got it, thanks!
+                                </button>
+                                <button
+                                    type="button"
+                                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                    onClick={handleLike}
+                                >
+                                    <Love className="h-6 fill-current stroke-current text-purple-300" />
                                 </button>
                             </div>
                         </div>
