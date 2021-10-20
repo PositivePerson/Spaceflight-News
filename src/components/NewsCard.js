@@ -1,9 +1,26 @@
 import React from 'react'
 
-const NewsCard = () => {
+const NewsCard = ({ showDetails, article = {}, loading = false }) => {
+
+    const {
+        id,
+        title,
+        url,
+        imageUrl,
+        newsSite,
+        summary,
+        publishedAt,
+        updatedAt,
+        featured,
+    } = article;
+
     return (
-        <div className="p-8 rounded-xl backdrop-filter backdrop-blur-md shadow-md">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting
+        <div onClick={() => showDetails(id)} className={`flex flex-col md:flex-row items-center p-6 rounded-xl backdrop-filter backdrop-blur-xl shadow-md ${!loading && 'cursor-pointer'} `}>
+            {loading && (
+                <h3 className="mx-auto">Loading news for you...</h3>
+            )}
+            <h3 className="flex italic p-6">{title}</h3>
+            <img className="w-40 rounded-xl" src={imageUrl} alt="" />
         </div>
     )
 }
